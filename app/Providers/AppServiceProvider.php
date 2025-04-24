@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
-use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
@@ -34,7 +35,7 @@ class AppServiceProvider extends ServiceProvider
             $this->app->isProduction()
         );
 
-        Date::use(Carbon::isImmutable());
+        Date::use(Carbonimmutable::class);
 
         URL::forceScheme($this->app->isLocal() ? 'http' : 'https');
 
