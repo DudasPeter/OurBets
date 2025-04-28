@@ -1,0 +1,107 @@
+I want to make an app for me and my friends to bet on IIHF2025.
+User gets 3 points for guessing the exact result, 1 points for guessing winner of the match and 2 points for guessing draw.
+App will have also scoreboard.
+We will not bet anything, user just get points for right guesses.
+
+Models:
+    -Match or GameMatch
+    -Prediction
+    -Score
+
+Migrations:
+    -matches_table
+    -predictions_table
+    -scores_table
+
+Features:
+    -Leaderboard
+    -User can bet only before the match starts
+    -User can see others predictions ???
+    -User can bet exact score prediction (3 points for right guess)
+    -User can pick winner (1 point) or draw (2 points)
+    -
+
+
+
+WARP:
+
+**Plan for Developing the IIHF 2025 Match Predictions Application**
+
+1. **Database and Migrations**
+   - Create a "matches" table with columns: (id, home_team, away_team, start_time, final_home_score, final_away_score).
+   - Create a "predictions" table with columns: (id, user_id, match_id, predicted_home_score, predicted_away_score).
+   - Update or confirm "users" table; ensure it supports relationships with predictions (id, name, email, password, etc.).
+   - Create a "scoreboard" table or a "scores" table with columns: (id, user_id, points).
+
+2. **Models and Relationships**
+   - Define a "Match" model that has relationships to "Predictions."
+   - Define a "Prediction" model that belongs to a "User" and a "Match."
+   - Define or extend "User" model to relate to "Predictions" and "Scoreboard."
+   - Define a "Score/Scoreboard" model if separate from the "User" model.
+
+3. **User Authentication**
+   - Configure Laravel's built-in auth scaffolding (register, login, logout, password reset).
+   - Implement middleware to ensure authenticated users can make predictions.
+
+4. **Match Management**
+   - Create a dedicated controller (e.g., MatchesController) for managing matches (CRUD).
+   - Set up routes for:
+     • GET /matches (index)
+     • GET /matches/{id} (show)
+     • POST /matches (store)
+     • PUT/PATCH /matches/{id} (update)
+     • DELETE /matches/{id} (destroy)
+   - Restrict match creation/updates to admins or authorized users.
+
+5. **Prediction Management**
+   - Create a PredictionsController with actions to create and update predictions.
+   - Ensure predictions are only accepted before the match "start_time."
+   - Store predicted scores in "predicted_home_score" and "predicted_away_score."
+
+6. **Points Calculation Logic**
+   - After each match final score is entered:
+     1. Award 3 points if the user predicted the exact score.
+     2. Award 2 points if the user correctly predicted a draw.
+     3. Award 1 point if the user correctly predicted the winning team.
+   - Implement a service or job to run after match finalization to compute points and update the scoreboard.
+
+7. **Scoreboard/Leaderboard**
+   - Create a route (e.g., GET /scoreboard) and corresponding view to display user scores in descending order.
+   - Optionally cache the scoreboard for performance.
+
+8. **Frontend & Blade Templates**
+   - Use Blade templates for match listing, prediction forms, scoreboard, and user authentication pages.
+   - Plug in TypeScript for any dynamic functionalities (form validations, scoreboard auto-refresh, etc.).
+   - Keep the design simple and user-friendly.
+
+9. **Configuration & Deployment**
+   - Use SQLite database as specified in the .env file.
+   - Enable database session handling in config/session.php.
+   - Test all routes, controllers, and business logic locally before deployment.
+
+10. **Testing & Validation**
+   - Write unit tests for match creation, prediction submission, points calculation, and scoreboard display.
+   - Validate user inputs (scores, match times) to avoid invalid data.
+
+**Ordering & Implementation Tips**
+- Start by creating migrations and models, then set up basic authentication.
+- Incrementally add the Match CRUD and test the workflow.
+- Use feature tests to ensure each part of the system is operating correctly.
+- Finally, polish the user interface and add TypeScript enhancements.
+
+
+
+predictions table:
+1. user_id as a foreign key referencing the users table
+2. match_id as a foreign key referencing the matches table
+3. predicted_home_score and predicted_away_score as integers
+4. A unique constraint on the combination of user_id and match_id to ensure a user can only have one prediction per match
+
+scores table:
+1. user_id as a foreign key referencing the users table
+2. total_points as an integer with a default of 0
+3. exact_score_count as an integer with a default of 0
+4. correct_draw_count as an integer with a default of 0
+5. correct_winner_count as an integer with a default of 0
+6. A unique constraint on user_id to ensure each user has only one score record
+
