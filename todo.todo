@@ -105,3 +105,55 @@ scores table:
 5. correct_winner_count as an integer with a default of 0
 6. A unique constraint on user_id to ensure each user has only one score record
 
+
+
+**Plan for Creating the Laravel-based IIHF 2025 Betting Application**
+
+1. **Set Up Database Tables**
+   • Generate migrations for matches (id, home_team, away_team, start_time, final_home_score, final_away_score), predictions (id, user_id, match_id, predicted_home_score, predicted_away_score), and scores (id, user_id, total_points, exact_score_count, correct_draw_count, correct_winner_count).
+   • Add the unique constraints on [user_id, match_id] in predictions and on user_id in scores.
+   • Use Laravel’s migration and model factories (if needed) for structured data creation.
+
+2. **Create Eloquent Models**
+   • Implement Match, Prediction, and Score models.
+   • Set up the appropriate relationships (e.g., a Prediction belongs to a User and a Match, a Score belongs to a User).
+
+3. **Implement Match Management**
+   • Create a MatchesController for CRUD operations on matches.
+   • Handle final score updates, ensuring real-time synchronization with the leaderboard.
+
+4. **Build Prediction System**
+   • Develop a PredictionsController to handle user predictions.
+   • Ensure validations (non-negative scores, submission only before match start_time).
+   • Add routes that restrict predictions once a match has started.
+
+5. **Automated Points Calculation**
+   • Write a service or observer to trigger points update after match final scores are recorded.
+   • Use the logic:
+     • 3 points for exact match score,
+     • 2 points for correct draw prediction,
+     • 1 point for correct winner.
+
+6. **Implement Leaderboard and Real-Time Updates**
+   • Create a ScoreboardController or use a component to display user standings.
+   • Integrate Laravel Echo or a similar websocket strategy to update match scores and leaderboard in real time.
+
+7. **Frontend with Inertia.js and Vue.js**
+   • Build Vue components for Match Management, Prediction Submission, and Leaderboard.
+   • Implement forms for new/edit predictions, ensuring user-friendly validation messages.
+   • Use dynamic updates for real-time scoreboard changes.
+
+8. **User Authentication and Security**
+   • Leverage existing authentication scaffolding.
+   • Restrict routes based on user roles (e.g., admin for match management).
+   • Secure endpoints for predictions and scoreboard.
+
+9. **Error Handling & Testing**
+   • Use try-catch blocks in controllers for robust error handling.
+   • Write unit tests (models, controllers) and integration tests for critical flows (predictions, points calculation).
+
+10. **Deployment & Final Checks**
+    • Configure environment for websockets (Echo, Pusher, or similar).
+    • Verify concurrency requirements (e.g., limited editing, no data race conditions).
+    • Optimize database queries and ensure application security with Laravel’s best practices.
+
