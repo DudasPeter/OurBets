@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('home_team');
             $table->string('away_team');
-            $table->timestamp('scheduled_time');
+            $table->dateTime('scheduled_time');
             $table->integer('home_score')->default(0);
             $table->integer('away_score')->default(0);
             $table->timestamps();
