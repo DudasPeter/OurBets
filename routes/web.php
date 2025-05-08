@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GameMatchController;
+use App\Http\Middleware\IsAdmin;
 use App\Models\GameMatch;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -15,7 +16,13 @@ Route::get('dashboard', function () {
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('matches', [GameMatchController::class, 'index'])->name('matches.index');
+    Route::get('matches/results', [GameMatchController::class, 'index'])->name('matches.index');
+});
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('matches/create', [GameMatchController::class, 'create'])->name('matches.create');
+    Route::post('match/store', [GameMatchController::class, 'store'])->name('match.store');
+
 });
 
 require __DIR__.'/settings.php';

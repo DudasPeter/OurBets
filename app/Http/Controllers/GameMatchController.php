@@ -14,8 +14,6 @@ class GameMatchController extends Controller
      */
     public function index()
     {
-        Auth::user();
-
         $games = GameMatch::orderBy('scheduled_time', 'desc')->get()
         ->map(function ($game) {
             $game->scheduled_time = Carbon::parse($game->scheduled_time)->isoFormat('DD.MM.  ddd   HH:mm');
@@ -32,7 +30,7 @@ class GameMatchController extends Controller
      */
     public function create()
     {
-        //
+        return inertia('Matches/Create');
     }
 
     /**
@@ -40,7 +38,26 @@ class GameMatchController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //TODO dd($request is working);
+
+        $data = $request->validate([
+            'home_team' => 'required|string|max:3',
+            'away_team' => 'required|string|max:3',
+            'home_score' => 'required|integer',
+            'away_score' => 'required|integer',
+            'scheduled_time' => 'required',
+        ]);
+
+        //TODO dd($data); is not working, Maybe error ???? try to add inputerror in matches/create
+
+
+        $match = GameMatch::create([
+            ...$data
+        ]);
+
+        return to_route('matches.index')->with('success', 'Match created!');
+
+
     }
 
     /**

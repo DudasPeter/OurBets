@@ -1,19 +1,43 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
-import { Head } from '@inertiajs/vue3';
+import { Head, usePage } from '@inertiajs/vue3';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-
+import Swal from 'sweetalert2'
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Matches',
-        href: '/Matches/Index',
+        href: '/Matches/Results',
     },
 ];
 
+const  page = usePage();
+
+const flashMessage = page.props.errors.message
+
+
+const errorToast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+    }
+});
+
+if (flashMessage){
+    errorToast.fire({
+        icon: "error",
+        title: flashMessage
+    });
+}
+
+
 const props = defineProps(['matches']);
 
-console.log(props.matches);
 </script>
 
 <template>
