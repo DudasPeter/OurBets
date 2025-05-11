@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
-import { Head, Link, usePage } from '@inertiajs/vue3';
+import { Head } from '@inertiajs/vue3';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Button } from '@/components/ui/button';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Matches',

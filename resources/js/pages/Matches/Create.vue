@@ -5,7 +5,6 @@ import { Head, useForm  } from '@inertiajs/vue3';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import Swal from 'sweetalert2';
 import InputError from '@/components/InputError.vue';
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -24,21 +23,6 @@ const form = useForm({
 });
 
 const createMatch = () => form.post(route('matches.store'));
-
-
-const successToast = Swal.mixin({
-    toast: true,
-    position: "top-end",
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true,
-    didOpen: (toast) => {
-        toast.onmouseenter = Swal.stopTimer;
-        toast.onmouseleave = Swal.resumeTimer;
-    }
-});
-
-
 
 </script>
 
