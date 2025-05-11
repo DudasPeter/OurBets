@@ -4,8 +4,8 @@ import NavMain from '@/components/NavMain.vue';
 import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
-import { Link } from '@inertiajs/vue3';
-import { BookOpen, Folder, Medal, Rows3, Trophy, Plus } from 'lucide-vue-next';
+import { Link, usePage } from '@inertiajs/vue3';
+import { Rows3, Trophy, Plus } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
 const mainNavItems: NavItem[] = [
@@ -20,12 +20,15 @@ const mainNavItems: NavItem[] = [
         href: '/leaderboards',
         icon: Trophy,
     },
-    {
+];
+
+if (usePage().props.auth.user.is_admin === 1){
+    mainNavItems.push({
         title: 'Add Match',
         href: '/matches/create',
         icon: Plus,
-    },
-];
+    })
+}
 
 const footerNavItems: NavItem[] = [
 

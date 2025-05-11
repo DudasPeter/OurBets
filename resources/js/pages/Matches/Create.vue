@@ -5,6 +5,8 @@ import { Head, useForm  } from '@inertiajs/vue3';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import Swal from 'sweetalert2';
+import InputError from '@/components/InputError.vue';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Matches',
@@ -21,7 +23,20 @@ const form = useForm({
     'scheduled_time': '',
 });
 
-const createMatch = () => form.post(route('match.store'));
+const createMatch = () => form.post(route('matches.store'));
+
+
+const successToast = Swal.mixin({
+    toast: true,
+    position: "top-end",
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+    }
+});
 
 
 
@@ -50,16 +65,21 @@ const createMatch = () => form.post(route('match.store'));
                                 <TableRow class="border-b hover:bg-gray-50">
                                     <TableCell class="text-center py-4 px-6">
                                         <Input class="text-center" id="home_team" v-model="form.home_team" placeholder="Home Team" ></Input>
+                                        <InputError :message="form.errors.home_team"></InputError>
                                     </TableCell>                                    <TableCell class="text-center py-4 px-6">
                                         <Input class="text-center" id="home_score" v-model="form.home_score" placeholder="Home Score" ></Input>
+                                        <InputError :message="form.errors.home_score"></InputError>
                                     </TableCell>                                    <TableCell class="text-center py-4 px-6">
                                         <Input class="text-center" id="away_team" v-model="form.away_team" placeholder="Away Team" ></Input>
+                                        <InputError :message="form.errors.away_team"></InputError>
                                     </TableCell>                                    <TableCell class="text-center py-4 px-6">
                                         <Input class="text-center" id="away_score" v-model="form.away_score" placeholder="Away Score" ></Input>
+                                        <InputError :message="form.errors.away_score"></InputError>
                                     </TableCell>
                                     <TableCell>
                                         <div class="text-center">
                                             <input class="text-center" id="scheduled_time" v-model="form.scheduled_time" type="datetime-local" />
+                                            <InputError :message="form.errors.scheduled_time"></InputError>
                                         </div>
                                     </TableCell>
                                     <TableCell>

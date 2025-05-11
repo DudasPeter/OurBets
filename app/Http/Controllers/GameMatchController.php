@@ -38,26 +38,32 @@ class GameMatchController extends Controller
      */
     public function store(Request $request)
     {
-        //TODO dd($request is working);
-
         $data = $request->validate([
             'home_team' => 'required|string|max:3',
             'away_team' => 'required|string|max:3',
-            'home_score' => 'required|integer',
-            'away_score' => 'required|integer',
-            'scheduled_time' => 'required',
+            'home_score' => ['required',
+                function ($attribute, $value, $fail) {
+                    if (!is_numeric($value) && $value !== '-') {
+                        $fail('Home Score must be a number or -');
+                    }
+                }],
+            'away_score' => ['required',
+                function ($attribute, $value, $fail) {
+                    if (!is_numeric($value) && $value !== '-') {
+                        $fail('Home Score must be a number or -');
+                    }
+                }],
+            'scheduled_time' => 'required|date',
         ]);
-
-        //TODO dd($data); is not working, Maybe error ???? try to add inputerror in matches/create
 
 
         $match = GameMatch::create([
             ...$data
         ]);
 
+        $match->save();
+
         return to_route('matches.index')->with('success', 'Match created!');
-
-
     }
 
     /**
@@ -65,7 +71,13 @@ class GameMatchController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $game = GameMatch::where('id', $id)->get();
+
+//        dd($game);
+
+        return inertia('Matches/Show', [
+            'match' => $game,
+        ]);
     }
 
     /**

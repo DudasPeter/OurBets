@@ -17,11 +17,12 @@ Route::get('dashboard', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('matches/results', [GameMatchController::class, 'index'])->name('matches.index');
+    Route::get('matches/results/{id}', [GameMatchController::class, 'show'])->name('matches.show');
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('matches/create', [GameMatchController::class, 'create'])->name('matches.create');
-    Route::post('match/store', [GameMatchController::class, 'store'])->name('match.store');
+    Route::post('matches/store', [GameMatchController::class, 'store'])->name('matches.store');
 
 });
 
