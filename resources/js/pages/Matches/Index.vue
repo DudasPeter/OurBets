@@ -66,7 +66,12 @@ const props = defineProps(['matches']);
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
-                                    <TableRow v-for="match in props.matches" :key="match.id" class="hover:bg-gray-200 transition">
+                                    <TableRow
+                                        v-for="match in props.matches"
+                                        :key="match.id"
+                                        class="hover:bg-gray-200 transition cursor-pointer"
+                                        @click="$inertia.visit(`/matches/results/${match.id}`)"
+                                    >
                                         <TableCell class="text-center">{{ match.home_team }}</TableCell>
                                         <TableCell class="text-center">{{ match.away_team }}</TableCell>
                                         <TableCell v-if="match.home_score === '-' && match.away_score === '-'" class="text-center font-bold text-red-600">
