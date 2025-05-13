@@ -71,9 +71,8 @@ class GameMatchController extends Controller
      */
     public function show(string $id)
     {
-        $game = GameMatch::where('id', $id)->get();
+        $game = GameMatch::where('id', $id)->firstOrFail();
 
-//        dd($game);
 
         return inertia('Matches/Show', [
             'match' => $game,
@@ -85,7 +84,9 @@ class GameMatchController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return inertia('Matches/Edit', [
+            'match' => GameMatch::where('id', $id)->firstOrFail(),
+        ]);
     }
 
     /**
@@ -93,7 +94,27 @@ class GameMatchController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data = $request->validate([
+            'home_team' => 'required|string|max:3',
+            'away_team' => 'required|string|max:3',
+            'home_score' => ['required',
+                function ($attribute, $value, $fail) {
+                    if (!is_numeric($value) && $value !== '-') {
+                        $fail('Home Score must be a number or -');
+                    }
+                }],
+            'away_score' => ['required',
+                function ($attribute, $value, $fail) {
+                    if (!is_numeric($value) && $value !== '-') {
+                        $fail('Home Score must be a number or -');
+                    }
+                }],
+            'scheduled_time' => 'required|date',
+        ]);
+
+        $game = GameMatch::where('id', $id)->firstOrFail();
+        $game->update($data);
+
     }
 
     /**

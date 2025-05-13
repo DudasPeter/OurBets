@@ -23,6 +23,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('matches/create', [GameMatchController::class, 'create'])->name('matches.create');
     Route::post('matches/store', [GameMatchController::class, 'store'])->name('matches.store');
+    Route::get('matches/results/{id}/edit', [GameMatchController::class, 'edit'])->name('matches.edit');
+    Route::patch('matches/results/{id}/edit', [GameMatchController::class, 'update'])->name('matches.update');
 
 });
 
