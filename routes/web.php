@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BetController;
 use App\Http\Controllers\GameMatchController;
 use App\Http\Middleware\IsAdmin;
 use App\Models\GameMatch;
@@ -18,6 +19,7 @@ Route::get('dashboard', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('matches/results', [GameMatchController::class, 'index'])->name('matches.index');
     Route::get('matches/results/{id}', [GameMatchController::class, 'show'])->name('matches.show');
+    Route::get('bets', [BetController::class, 'index'])->name('bets.index');
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
