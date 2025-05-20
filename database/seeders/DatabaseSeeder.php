@@ -3,9 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\Bet;
-use App\Models\GameMatch;
+use App\Models\Game;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Database\Factories\BetFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,11 +16,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(10)->create();
+        $games = Game::factory(10)->create();
 
-        GameMatch::factory(10)->create();
-        Bet::factory(10)->create();
-
+        $users = User::factory(10)->create();
 
         User::factory()->create([
             'name' => 'Test User',
@@ -32,5 +31,16 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('admin'),
             'is_admin' => true,
         ]);
+
+        foreach ($users as $user) {
+            foreach ($games as $game) {
+                Bet::factory()->create([
+                    'user_id' => $user->id,
+                    'game_id' => $game->id,
+                    'prediction_home' => rand(0, 9),
+                    'prediction_away' => rand(0, 9),
+                ]);
+            }
+        }
     }
 }

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('bets', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('gamematch_id')->constrained('game_matches')->onDelete('cascade');
+            $table->foreignId('game_id')->constrained('games')->onDelete('cascade');
             $table->integer('prediction_home');
             $table->integer('prediction_away');
             $table->integer('points_awarded')->default(0);

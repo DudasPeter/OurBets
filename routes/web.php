@@ -3,7 +3,7 @@
 use App\Http\Controllers\BetController;
 use App\Http\Controllers\GameMatchController;
 use App\Http\Middleware\IsAdmin;
-use App\Models\GameMatch;
+use App\Models\Game;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 

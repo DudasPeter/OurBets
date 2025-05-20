@@ -7,12 +7,12 @@
  * This file contains all tests for the OurBets application, including:
  * - Feature tests for GameMatchController
  * - Auth tests for admin access
- * - Unit tests for GameMatch model
+ * - Unit tests for Game model
  * - Unit tests for Bet model
  */
 
 use App\Models\Bet;
-use App\Models\GameMatch;
+use App\Models\Game;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -33,7 +33,7 @@ test('guests cannot view matches index', function () {
 });
 
 test('authenticated users can view matches index', function () {
-    $matches = GameMatch::factory()->count(3)->create();
+    $matches = Game::factory()->count(3)->create();
     
     $response = $this->actingAs($this->user)
                      ->get(route('matches.index'));
@@ -44,9 +44,9 @@ test('authenticated users can view matches index', function () {
 
 test('matches are displayed in descending order by scheduled time', function () {
     // Create matches with different scheduled times
-    $match1 = GameMatch::factory()->create(['scheduled_time' => now()->addDays(2)]);
-    $match2 = GameMatch::factory()->create(['scheduled_time' => now()->addDays(1)]);
-    $match3 = GameMatch::factory()->create(['scheduled_time' => now()->addDays(3)]);
+    $match1 = Game::factory()->create(['scheduled_time' => now()->addDays(2)]);
+    $match2 = Game::factory()->create(['scheduled_time' => now()->addDays(1)]);
+    $match3 = Game::factory()->create(['scheduled_time' => now()->addDays(3)]);
     
     $response = $this->actingAs($this->user)
                      ->get(route('matches.index'));
@@ -125,7 +125,7 @@ test('match creation validates input data', function () {
 });
 
 test('authenticated users can view a specific match', function () {
-    $match = GameMatch::factory()->create();
+    $match = Game::factory()->create();
     
     $response = $this->actingAs($this->user)
                      ->get(route('matches.show', $match->id));
@@ -160,7 +160,7 @@ test('admin users can access admin routes', function () {
 // ======== UNIT TESTS: GAME MATCH MODEL ========
 
 test('game match has many bets', function () {
-    $match = GameMatch::factory()->create();
+    $match = Game::factory()->create();
     $bets = Bet::factory()->count(3)->create(['gamematch_id' => $match->id]);
     
     expect($match->bets)->toHaveCount(3);
@@ -176,7 +176,7 @@ test('game match attributes are correctly set', function () {
         'scheduled_time' => now()->toDateTimeString(),
     ];
     
-    $match = GameMatch::factory()->create($matchData);
+    $match = Game::factory()->create($matchData);
     
     expect($match->home_team)->toBe('ESP');
     expect($match->away_team)->toBe('GER');
@@ -186,9 +186,9 @@ test('game match attributes are correctly set', function () {
 });
 
 test('game match factory creates valid instances', function () {
-    $match = GameMatch::factory()->create();
+    $match = Game::factory()->create();
     
-    expect($match)->toBeInstanceOf(GameMatch::class);
+    expect($match)->toBeInstanceOf(Game::class);
     expect($match->home_team)->toBeString();
     expect($match->away_team)->toBeString();
     expect($match->home_score)->toBeInt();
@@ -207,16 +207,16 @@ test('bet belongs to a user', function () {
 });
 
 test('bet belongs to a game match', function () {
-    $match = GameMatch::factory()->create();
+    $match = Game::factory()->create();
     $bet = Bet::factory()->create(['gamematch_id' => $match->id]);
     
-    expect($bet->gamematch)->toBeInstanceOf(GameMatch::class);
+    expect($bet->gamematch)->toBeInstanceOf(Game::class);
     expect($bet->gamematch->id)->toBe($match->id);
 });
 
 test('bet attributes are correctly set', function () {
     $user = User::factory()->create();
-    $match = GameMatch::factory()->create();
+    $match = Game::factory()->create();
     
     $betData = [
         'user_id' => $user->id,
@@ -238,7 +238,7 @@ test('bet attributes are correctly set', function () {
 test('bet factory creates valid instances', function () {
     // Make sure we have users and matches in the database
     User::factory()->count(2)->create();
-    GameMatch::factory()->count(2)->create();
+    Game::factory()->count(2)->create();
     
     $bet = Bet::factory()->create();
     

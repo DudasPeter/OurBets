@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\GameMatch;
+use App\Models\Game;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -14,7 +14,7 @@ class GameMatchController extends Controller
      */
     public function index()
     {
-        $games = GameMatch::orderBy('scheduled_time', 'desc')->get()
+        $games = Game::orderBy('scheduled_time', 'desc')->get()
         ->map(function ($game) {
             $game->scheduled_time = Carbon::parse($game->scheduled_time)->isoFormat('DD.MM.  ddd   HH:mm');
             return $game;
@@ -57,7 +57,7 @@ class GameMatchController extends Controller
         ]);
 
 
-        $match = GameMatch::create([
+        $match = Game::create([
             ...$data
         ]);
 
@@ -71,8 +71,8 @@ class GameMatchController extends Controller
      */
     public function show(string $id)
     {
-        $game = GameMatch::where('id', $id)->firstOrFail();
 
+        $game = Game::with('bets.user')->findOrFail($id);
 
         return inertia('Matches/Show', [
             'match' => $game,
@@ -85,7 +85,7 @@ class GameMatchController extends Controller
     public function edit(string $id)
     {
         return inertia('Matches/Edit', [
-            'match' => GameMatch::where('id', $id)->firstOrFail(),
+            'match' => Game::where('id', $id)->firstOrFail(),
         ]);
     }
 
@@ -112,7 +112,7 @@ class GameMatchController extends Controller
             'scheduled_time' => 'required|date',
         ]);
 
-        $game = GameMatch::where('id', $id)->firstOrFail();
+        $game = Game::where('id', $id)->firstOrFail();
         $game->update($data);
 
     }

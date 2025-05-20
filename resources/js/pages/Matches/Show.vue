@@ -11,10 +11,9 @@ const breadcrumbs: BreadcrumbItem[] = [
     },
 ];
 
-const page = usePage()
+const page = usePage();
 const props = defineProps(['match']);
-
-console.log(props.match.scheduled_time);
+const isAdmin = page.props.auth.user.is_admin;
 
 </script>
 
@@ -43,12 +42,48 @@ console.log(props.match.scheduled_time);
                                     </TableCell>
                                     <TableCell class="text-center">{{ props.match.away_team }}</TableCell>
                                     <TableCell class="text-center">{{ props.match.scheduled_time}}</TableCell>
-                                    <TableCell class="text-center">
+                                    <TableCell v-if="isAdmin === 1 || isAdmin === true" class="text-center">
                                         <Button @click="$inertia.visit(`${page.url}/edit`)" class="cursor-pointer">Edit</Button>
                                     </TableCell>
                                 </TableRow>
                             </TableBody>
                         </Table>
+
+                        <div v-if="props.match.bets && props.match.bets.length" class="mt-8">
+                            <h2 class="text-xl font-bold mb-4">All Bets</h2>
+                            <div class="rounded-lg border border-gray-300 shadow-md overflow-hidden">
+                                <Table>
+                                    <TableHeader>
+                                        <TableRow>
+                                            <TableHead class="text-center">User</TableHead>
+                                            <TableHead class="text-center">Prediction</TableHead>
+<!--                                            <TableHead class="text-center">Actual Score</TableHead>-->
+                                            <TableHead class="text-center">Points</TableHead>
+                                        </TableRow>
+                                    </TableHeader>
+                                    <TableBody>
+                                        <TableRow
+                                            v-for="bet in props.match.bets"
+                                            :key="bet.id"
+                                            class="hover:bg-white"
+                                            :class="{'bg-blue-50': bet.user_id === page.props.auth.user.id}"
+                                        >
+                                            <TableCell class="text-center">
+                                                {{ bet.user ? bet.user.name : 'Unknown User' }}
+                                                <span v-if="bet.user_id === page.props.auth.user.id" class="text-xs text-blue-600 ml-1">(You)</span>
+                                            </TableCell>
+                                            <TableCell class="text-center font-bold">
+                                                {{ bet.prediction_home }} : {{ bet.prediction_away }}
+                                            </TableCell>
+<!--                                            <TableCell class="text-center">-->
+<!--                                                {{ props.match.home_score }} : {{ props.match.away_score }}-->
+<!--                                            </TableCell>-->
+                                            <TableCell class="text-center">{{ bet.points_awarded }}</TableCell>
+                                        </TableRow>
+                                    </TableBody>
+                                </Table>
+                            </div>
+                        </div>
                     </div>
 
                 </div>

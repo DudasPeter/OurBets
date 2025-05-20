@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class GameMatch extends Model
+class Game extends Model
 {
     use HasFactory;
 
-    protected $table = 'game_matches';
+    protected $table = 'games';
 
     public function bets(): HasMany
     {

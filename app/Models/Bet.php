@@ -19,6 +19,6 @@ class Bet extends Model
 
     public function gamematch(): BelongsTo
     {
-        return $this->belongsTo(GameMatch::class);
+        return $this->belongsTo(Game::class);
     }
 }
