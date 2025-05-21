@@ -115,6 +115,8 @@ class GameMatchController extends Controller
         $game = Game::where('id', $id)->firstOrFail();
         $game->update($data);
 
+        return to_route('matches.index')->with('success', 'Match updated!');
+
     }
 
     /**

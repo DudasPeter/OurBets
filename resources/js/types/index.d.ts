@@ -27,6 +27,7 @@ export interface SharedData extends PageProps {
 }
 
 export interface User {
+    is_admin: number;
     id: number;
     name: string;
     email: string;
