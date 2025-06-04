@@ -5,7 +5,7 @@ import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
-import { Rows3, Trophy, Plus } from 'lucide-vue-next';
+import { Rows3, Trophy, Plus, Dices } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
 const mainNavItems: NavItem[] = [
@@ -14,7 +14,11 @@ const mainNavItems: NavItem[] = [
         href: '/matches/results',
         icon: Rows3,
     },
-
+    {
+        title: 'All Bets',
+        href: '/bets',
+        icon: Dices,
+    },
     {
         title: 'Leaderboards',
         href: '/leaderboards',
