@@ -70,7 +70,7 @@ const props = defineProps(['matches']);
                                 </TableHeader>
                                 <TableBody>
                                     <TableRow
-                                        v-for="match in props.matches"
+                                        v-for="match in props.matches.data"
                                         :key="match.id"
                                         class="hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer"
                                         @click="$inertia.visit(`/matches/results/${match.id}`)"

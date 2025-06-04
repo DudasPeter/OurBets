@@ -20,8 +20,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 const props = defineProps(['bets']);
 
-console.log(props.bets);
-
 </script>
 
 <template>

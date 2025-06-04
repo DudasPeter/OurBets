@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\GameResource;
 use App\Models\Game;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -21,7 +22,7 @@ class GameMatchController extends Controller
         });
 
         return inertia('Matches/Index', [
-            'matches' => $games
+            'matches' => GameResource::collection($games),
         ]);
     }
 
