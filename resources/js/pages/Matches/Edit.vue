@@ -62,6 +62,7 @@ const deleteMatch = async () =>
                                         <TableHead class="w-[30px] px-6 py-4 text-center font-bold">Final</TableHead>
                                         <TableHead class="w-[50px] px-6 py-4 text-center">Date/Time</TableHead>
                                         <TableHead class="w-[50px] px-6 py-4 text-center"></TableHead>
+                                        <TableHead class="w-[50px] px-6 py-4 text-center"></TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
@@ -94,7 +95,8 @@ const deleteMatch = async () =>
                                         <TableCell>
                                             <Button
                                                 @click="deleteMatch"
-                                                class="destructive cursor-pointer">Delete</Button>
+                                                variant="destructive"
+                                                class=" cursor-pointer">Delete</Button>
                                         </TableCell>
                                     </TableRow>
                                 </TableBody>
