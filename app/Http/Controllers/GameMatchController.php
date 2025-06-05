@@ -44,13 +44,13 @@ class GameMatchController extends Controller
             'away_team' => 'required|string|max:3',
             'home_score' => ['required',
                 function ($attribute, $value, $fail) {
-                    if (! is_numeric($value) && $value !== '-') {
+                    if (!is_numeric($value) && $value !== '-') {
                         $fail('Home Score must be a number or -');
                     }
                 }],
             'away_score' => ['required',
                 function ($attribute, $value, $fail) {
-                    if (! is_numeric($value) && $value !== '-') {
+                    if (!is_numeric($value) && $value !== '-') {
                         $fail('Home Score must be a number or -');
                     }
                 }],
@@ -74,8 +74,6 @@ class GameMatchController extends Controller
 
         $game = Game::with('bets.user')->findOrFail($id);
 
-        //        dd($game);
-
         return inertia('Matches/Show', [
             'match' => GameResource::make($game),
         ]);
@@ -86,8 +84,10 @@ class GameMatchController extends Controller
      */
     public function edit(string $id)
     {
+        $game = Game::where('id', $id)->firstOrFail();
+
         return inertia('Matches/Edit', [
-            'match' => Game::where('id', $id)->firstOrFail(),
+            'match' => Gameresource::make($game),
         ]);
     }
 
@@ -101,13 +101,13 @@ class GameMatchController extends Controller
             'away_team' => 'required|string|max:3',
             'home_score' => ['required',
                 function ($attribute, $value, $fail) {
-                    if (! is_numeric($value) && $value !== '-') {
+                    if (!is_numeric($value) && $value !== '-') {
                         $fail('Home Score must be a number or -');
                     }
                 }],
             'away_score' => ['required',
                 function ($attribute, $value, $fail) {
-                    if (! is_numeric($value) && $value !== '-') {
+                    if (!is_numeric($value) && $value !== '-') {
                         $fail('Home Score must be a number or -');
                     }
                 }],

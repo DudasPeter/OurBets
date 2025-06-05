@@ -17,14 +17,14 @@ const breadcrumbs: BreadcrumbItem[] = [
 const props = defineProps(['match']);
 
 const form = useForm({
-    home_team: props.match.home_team,
-    away_team: props.match.away_team,
-    home_score: props.match.home_score,
-    away_score: props.match.away_score,
-    scheduled_time: props.match.scheduled_time,
+    home_team: props.match.data.home_team,
+    away_team: props.match.data.away_team,
+    home_score: props.match.data.home_score,
+    away_score: props.match.data.away_score,
+    scheduled_time: props.match.data.scheduled_time,
 });
 
-const updateMatch = () => form.patch(route('matches.update', { id: props.match.id }));
+const updateMatch = () => form.patch(route('matches.update', { id: props.match.data.id }));
 </script>
 
 <template>

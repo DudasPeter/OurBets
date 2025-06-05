@@ -12,6 +12,8 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 const props = defineProps(['bets']);
+
+console.log(props.bets.data);
 </script>
 
 <template>
@@ -51,15 +53,12 @@ const props = defineProps(['bets']);
                             <PaginationContent>
                                 <PaginationPrevious :disabled="!props.bets.prev_page_url" @click="$inertia.get(props.bets.prev_page_url)" />
 
-                                <!-- First page -->
                                 <PaginationItem :value="1" :is-active="props.bets.current_page === 1" @click="$inertia.get('/bets', { page: 1 })">
                                     1
                                 </PaginationItem>
 
-                                <!-- Ellipsis if needed -->
                                 <PaginationEllipsis v-if="props.bets.current_page > 3" />
 
-                                <!-- Page before current if not first or second page -->
                                 <PaginationItem
                                     v-if="props.bets.current_page > 2"
                                     :value="props.bets.current_page - 1"
@@ -69,7 +68,6 @@ const props = defineProps(['bets']);
                                     {{ props.bets.current_page - 1 }}
                                 </PaginationItem>
 
-                                <!-- Current page if not first page -->
                                 <PaginationItem
                                     v-if="props.bets.current_page !== 1"
                                     :value="props.bets.current_page"
@@ -79,7 +77,6 @@ const props = defineProps(['bets']);
                                     {{ props.bets.current_page }}
                                 </PaginationItem>
 
-                                <!-- Page after current if not last or second-to-last page -->
                                 <PaginationItem
                                     v-if="props.bets.current_page < props.bets.last_page - 1"
                                     :value="props.bets.current_page + 1"
@@ -89,10 +86,8 @@ const props = defineProps(['bets']);
                                     {{ props.bets.current_page + 1 }}
                                 </PaginationItem>
 
-                                <!-- Ellipsis if needed -->
                                 <PaginationEllipsis v-if="props.bets.current_page < props.bets.last_page - 2" />
 
-                                <!-- Last page if not first page -->
                                 <PaginationItem
                                     v-if="props.bets.last_page !== 1 && props.bets.current_page !== props.bets.last_page"
                                     :value="props.bets.last_page"

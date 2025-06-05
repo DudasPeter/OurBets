@@ -16,6 +16,7 @@ class BetResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'game'=> GameResource::make($this->whenLoaded('game')),
             'user' => UserResource::make($this->whenLoaded('user')),
             'prediction_home' => $this->prediction_home,
             'prediction_away' => $this->prediction_away,
