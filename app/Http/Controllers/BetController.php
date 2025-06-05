@@ -12,11 +12,11 @@ class BetController extends Controller
      */
     public function index()
     {
-        $bets = Bet::with(['user','game'])->paginate(10);
+        $bets = Bet::with(['user', 'game'])->paginate(10);
 
-        return inertia('Bets/Index',[
+        return inertia('Bets/Index', [
             'bets' => $bets,
-        ] );
+        ]);
     }
 
     /**

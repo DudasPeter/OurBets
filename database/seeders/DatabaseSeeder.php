@@ -6,7 +6,6 @@ use App\Models\Bet;
 use App\Models\Game;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Database\Factories\BetFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder

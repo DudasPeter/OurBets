@@ -6,7 +6,6 @@ use App\Http\Resources\GameResource;
 use App\Models\Game;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Auth;
 
 class GameMatchController extends Controller
 {
@@ -16,10 +15,11 @@ class GameMatchController extends Controller
     public function index()
     {
         $games = Game::orderBy('scheduled_time', 'desc')->get()
-        ->map(function ($game) {
-            $game->scheduled_time = Carbon::parse($game->scheduled_time)->isoFormat('DD.MM.  ddd   HH:mm');
-            return $game;
-        });
+            ->map(function ($game) {
+                $game->scheduled_time = Carbon::parse($game->scheduled_time)->isoFormat('DD.MM.  ddd   HH:mm');
+
+                return $game;
+            });
 
         return inertia('Matches/Index', [
             'matches' => GameResource::collection($games),
@@ -44,22 +44,21 @@ class GameMatchController extends Controller
             'away_team' => 'required|string|max:3',
             'home_score' => ['required',
                 function ($attribute, $value, $fail) {
-                    if (!is_numeric($value) && $value !== '-') {
+                    if (! is_numeric($value) && $value !== '-') {
                         $fail('Home Score must be a number or -');
                     }
                 }],
             'away_score' => ['required',
                 function ($attribute, $value, $fail) {
-                    if (!is_numeric($value) && $value !== '-') {
+                    if (! is_numeric($value) && $value !== '-') {
                         $fail('Home Score must be a number or -');
                     }
                 }],
             'scheduled_time' => 'required|date',
         ]);
 
-
         $match = Game::create([
-            ...$data
+            ...$data,
         ]);
 
         $match->save();
@@ -75,7 +74,7 @@ class GameMatchController extends Controller
 
         $game = Game::with('bets.user')->findOrFail($id);
 
-//        dd($game);
+        //        dd($game);
 
         return inertia('Matches/Show', [
             'match' => GameResource::make($game),
@@ -102,13 +101,13 @@ class GameMatchController extends Controller
             'away_team' => 'required|string|max:3',
             'home_score' => ['required',
                 function ($attribute, $value, $fail) {
-                    if (!is_numeric($value) && $value !== '-') {
+                    if (! is_numeric($value) && $value !== '-') {
                         $fail('Home Score must be a number or -');
                     }
                 }],
             'away_score' => ['required',
                 function ($attribute, $value, $fail) {
-                    if (!is_numeric($value) && $value !== '-') {
+                    if (! is_numeric($value) && $value !== '-') {
                         $fail('Home Score must be a number or -');
                     }
                 }],

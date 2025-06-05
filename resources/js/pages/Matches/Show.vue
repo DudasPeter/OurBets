@@ -15,6 +15,7 @@ const page = usePage<SharedData>();
 const props = defineProps(['match']);
 const isAdmin = page.props.auth.user.is_admin; //SQLite have just numbers (1,0) instead of boolean(true,false), in other DB change also type in types/index.ts
 
+
 </script>
 
 <template>
@@ -74,11 +75,11 @@ const isAdmin = page.props.auth.user.is_admin; //SQLite have just numbers (1,0) 
                                         v-for="bet in props.match.data.bets"
                                         :key="bet.id"
                                         class="hover:bg-gray-50 dark:hover:bg-gray-700"
-                                        :class="{'bg-blue-50 dark:bg-blue-900/30': bet.user.id === page.props.auth.user.id}"
+                                        :class="{'bg-blue-50 dark:bg-blue-900/30': bet.user_id === page.props.auth.user.id}"
                                     >
                                         <TableCell class="text-center">
                                             {{ bet.user ? bet.user.name : 'Unknown User' }}
-                                            <span v-if="bet.user.id === page.props.auth.user.id" class="text-xs text-blue-600 dark:text-blue-400 ml-1">(You)</span>
+                                            <span v-if="bet.user_id === page.props.auth.user.id" class="text-xs text-blue-600 dark:text-blue-400 ml-1">(You)</span>
                                         </TableCell>
                                         <TableCell class="text-center font-bold">
                                             {{ bet.prediction_home }} : {{ bet.prediction_away }}

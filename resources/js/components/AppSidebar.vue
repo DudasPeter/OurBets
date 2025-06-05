@@ -5,7 +5,7 @@ import NavUser from '@/components/NavUser.vue';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/vue3';
-import { Rows3, Trophy, Plus, Dices } from 'lucide-vue-next';
+import { Dices, Plus, Rows3, Trophy } from 'lucide-vue-next';
 import AppLogo from './AppLogo.vue';
 
 const mainNavItems: NavItem[] = [
@@ -26,17 +26,15 @@ const mainNavItems: NavItem[] = [
     },
 ];
 
-if (usePage().props.auth.user.is_admin === 1){
+if (usePage().props.auth.user.is_admin === 1) {
     mainNavItems.push({
         title: 'Add Match',
         href: '/matches/create',
         icon: Plus,
-    })
+    });
 }
 
-const footerNavItems: NavItem[] = [
-
-];
+const footerNavItems: NavItem[] = [];
 </script>
 
 <template>

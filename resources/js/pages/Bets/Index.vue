@@ -1,16 +1,9 @@
 <script setup lang="ts">
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationNext, PaginationPrevious } from '@/components/ui/pagination';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import {
-    Pagination,
-    PaginationContent,
-    PaginationEllipsis,
-    PaginationItem,
-    PaginationNext,
-    PaginationPrevious,
-} from '@/components/ui/pagination'
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Matches',
@@ -19,7 +12,6 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 const props = defineProps(['bets']);
-
 </script>
 
 <template>
@@ -27,9 +19,9 @@ const props = defineProps(['bets']);
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="flex h-full flex-1 flex-col gap-4 rounded-xl p-4">
-            <div class="relative min-h-[100vh] flex-1 rounded-xl border border-sidebar-border/70 dark:border-sidebar-border md:min-h-min">
+            <div class="border-sidebar-border/70 dark:border-sidebar-border relative min-h-[100vh] flex-1 rounded-xl border md:min-h-min">
                 <div class="container mx-auto p-6">
-                    <div class="rounded-lg border border-gray-300 shadow-md overflow-hidden">
+                    <div class="overflow-hidden rounded-lg border border-gray-300 shadow-md">
                         <Table>
                             <TableHeader>
                                 <TableRow>
@@ -40,13 +32,13 @@ const props = defineProps(['bets']);
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                <TableRow v-for="bet in props.bets.data" :key="bet.id"  class="hover:bg-white">
+                                <TableRow v-for="bet in props.bets.data" :key="bet.id" class="hover:bg-white">
                                     <TableCell class="text-center">{{ bet.user.name }}</TableCell>
                                     <TableCell class="text-center">{{ bet.game.home_team }}</TableCell>
                                     <TableCell class="text-center font-bold text-red-600">
                                         {{ bet.prediction_home }} : {{ bet.prediction_away }}
                                     </TableCell>
-                                    <TableCell class="text-center">{{ bet.game.away_team}}</TableCell>
+                                    <TableCell class="text-center">{{ bet.game.away_team }}</TableCell>
                                 </TableRow>
                             </TableBody>
                         </Table>
@@ -57,17 +49,10 @@ const props = defineProps(['bets']);
                             @update:page="(newPage) => $inertia.get('/bets', { page: newPage })"
                         >
                             <PaginationContent>
-                                <PaginationPrevious
-                                    :disabled="!props.bets.prev_page_url"
-                                    @click="$inertia.get(props.bets.prev_page_url)"
-                                />
+                                <PaginationPrevious :disabled="!props.bets.prev_page_url" @click="$inertia.get(props.bets.prev_page_url)" />
 
                                 <!-- First page -->
-                                <PaginationItem
-                                    :value="1"
-                                    :is-active="props.bets.current_page === 1"
-                                    @click="$inertia.get('/bets', { page: 1 })"
-                                >
+                                <PaginationItem :value="1" :is-active="props.bets.current_page === 1" @click="$inertia.get('/bets', { page: 1 })">
                                     1
                                 </PaginationItem>
 
@@ -117,10 +102,7 @@ const props = defineProps(['bets']);
                                     {{ props.bets.last_page }}
                                 </PaginationItem>
 
-                                <PaginationNext
-                                    :disabled="!props.bets.next_page_url"
-                                    @click="$inertia.get(props.bets.next_page_url)"
-                                />
+                                <PaginationNext :disabled="!props.bets.next_page_url" @click="$inertia.get(props.bets.next_page_url)" />
                             </PaginationContent>
                         </Pagination>
                     </div>

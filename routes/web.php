@@ -2,8 +2,6 @@
 
 use App\Http\Controllers\BetController;
 use App\Http\Controllers\GameMatchController;
-use App\Http\Middleware\IsAdmin;
-use App\Models\Game;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -14,7 +12,6 @@ Route::get('/', function () {
 Route::get('dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('matches/results', [GameMatchController::class, 'index'])->name('matches.index');

@@ -16,7 +16,7 @@ class GameResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'bets'=> BetResource::collection($this->whenLoaded('bets')),
+            'bets' => BetResource::collection($this->whenLoaded('bets')),
             'home_team' => $this->home_team,
             'away_team' => $this->away_team,
             'scheduled_time' => $this->scheduled_time,

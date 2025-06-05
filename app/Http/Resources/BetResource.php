@@ -15,11 +15,11 @@ class BetResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'=> $this->id,
-            'user'=> UserResource::make($this->whenLoaded('user')),
-            'prediction_home'=> $this->prediction_home,
-            'prediction_away'=> $this->prediction_away,
-            'points_awarded'=>$this->points_awarded
+            'id' => $this->id,
+            'user' => UserResource::make($this->whenLoaded('user')),
+            'prediction_home' => $this->prediction_home,
+            'prediction_away' => $this->prediction_away,
+            'points_awarded' => $this->points_awarded,
         ];
     }
 }
