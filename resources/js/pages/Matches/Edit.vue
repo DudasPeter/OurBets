@@ -6,6 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
+import Swal from 'sweetalert2';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -25,6 +26,22 @@ const form = useForm({
 });
 
 const updateMatch = () => form.patch(route('matches.update', { id: props.match.data.id }));
+
+
+const deleteMatch = async () =>
+    await Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.delete(route('matches.destroy', {id: props.match.data.id}))
+        }
+    });
 </script>
 
 <template>
@@ -73,6 +90,11 @@ const updateMatch = () => form.patch(route('matches.update', { id: props.match.d
                                         </TableCell>
                                         <TableCell>
                                             <Button class="cursor-pointer" type="submit">Submit</Button>
+                                        </TableCell>
+                                        <TableCell>
+                                            <Button
+                                                @click="deleteMatch"
+                                                class="destructive cursor-pointer">Delete</Button>
                                         </TableCell>
                                     </TableRow>
                                 </TableBody>

@@ -126,6 +126,9 @@ class GameMatchController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $game = Game::where('id', $id)->firstOrFail();
+
+        $game->delete();
+        return to_route('matches.index')->with('success', 'Match deleted!');
     }
 }

@@ -36,7 +36,7 @@ class AppServiceProvider extends ServiceProvider
 
         Date::use(Carbonimmutable::class);
 
-        URL::forceScheme($this->app->isLocal() ? 'http' : 'https');
+//        URL::forceScheme($this->app->isLocal() ? 'http' : 'https');
 
     }
 }
