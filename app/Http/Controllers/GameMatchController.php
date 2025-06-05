@@ -75,8 +75,10 @@ class GameMatchController extends Controller
 
         $game = Game::with('bets.user')->findOrFail($id);
 
+//        dd($game);
+
         return inertia('Matches/Show', [
-            'match' => $game,
+            'match' => GameResource::make($game),
         ]);
     }
 

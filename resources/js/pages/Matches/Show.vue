@@ -40,12 +40,12 @@ const isAdmin = page.props.auth.user.is_admin; //SQLite have just numbers (1,0) 
                                 </TableHeader>
                                 <TableBody>
                                     <TableRow class="hover:bg-gray-50 dark:hover:bg-gray-700">
-                                        <TableCell class="text-center font-medium">{{ props.match.home_team }}</TableCell>
+                                        <TableCell class="text-center font-medium">{{ props.match.data.home_team }}</TableCell>
                                         <TableCell class="text-center font-bold text-red-600 text-xl">
-                                            {{ props.match.home_score }} : {{ props.match.away_score }}
+                                            {{ props.match.data.home_score }} : {{ props.match.data.away_score }}
                                         </TableCell>
-                                        <TableCell class="text-center font-medium">{{ props.match.away_team }}</TableCell>
-                                        <TableCell class="text-center">{{ props.match.scheduled_time}}</TableCell>
+                                        <TableCell class="text-center font-medium">{{ props.match.data.away_team }}</TableCell>
+                                        <TableCell class="text-center">{{ props.match.data.scheduled_time}}</TableCell>
                                         <TableCell v-if="isAdmin === 1 || isAdmin === true" class="text-center">
                                             <Button @click="router.visit(`${page.url}/edit`)" class="cursor-pointer bg-blue-600 hover:bg-blue-700">Edit</Button>
                                         </TableCell>
@@ -55,7 +55,7 @@ const isAdmin = page.props.auth.user.is_admin; //SQLite have just numbers (1,0) 
                         </div>
                     </div>
 
-                    <div v-if="props.match.bets && props.match.bets.length" class="rounded-lg border border-gray-300 shadow-md overflow-hidden bg-white dark:bg-gray-800">
+                    <div v-if="props.match.data.bets && props.match.data.bets.length" class="rounded-lg border border-gray-300 shadow-md overflow-hidden bg-white dark:bg-gray-800">
                         <div class="p-4 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
                             <h2 class="text-xl font-bold text-center text-gray-800 dark:text-white">All Bets</h2>
                         </div>
@@ -71,20 +71,20 @@ const isAdmin = page.props.auth.user.is_admin; //SQLite have just numbers (1,0) 
                                 </TableHeader>
                                 <TableBody>
                                     <TableRow
-                                        v-for="bet in props.match.bets"
+                                        v-for="bet in props.match.data.bets"
                                         :key="bet.id"
                                         class="hover:bg-gray-50 dark:hover:bg-gray-700"
-                                        :class="{'bg-blue-50 dark:bg-blue-900/30': bet.user_id === page.props.auth.user.id}"
+                                        :class="{'bg-blue-50 dark:bg-blue-900/30': bet.user.id === page.props.auth.user.id}"
                                     >
                                         <TableCell class="text-center">
                                             {{ bet.user ? bet.user.name : 'Unknown User' }}
-                                            <span v-if="bet.user_id === page.props.auth.user.id" class="text-xs text-blue-600 dark:text-blue-400 ml-1">(You)</span>
+                                            <span v-if="bet.user.id === page.props.auth.user.id" class="text-xs text-blue-600 dark:text-blue-400 ml-1">(You)</span>
                                         </TableCell>
                                         <TableCell class="text-center font-bold">
                                             {{ bet.prediction_home }} : {{ bet.prediction_away }}
                                         </TableCell>
 <!--                                        <TableCell class="text-center">-->
-<!--                                            {{ props.match.home_score }} : {{ props.match.away_score }}-->
+<!--                                            {{ props.match.data.home_score }} : {{ props.match.data.away_score }}-->
 <!--                                        </TableCell>-->
                                         <TableCell class="text-center font-medium">{{ bet.points_awarded }}</TableCell>
                                     </TableRow>
