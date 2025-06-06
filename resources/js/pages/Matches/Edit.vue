@@ -94,6 +94,7 @@ const deleteMatch = async () =>
                                         </TableCell>
                                         <TableCell>
                                             <Button
+                                                type="button"
                                                 @click="deleteMatch"
                                                 variant="destructive"
                                                 class=" cursor-pointer">Delete</Button>
