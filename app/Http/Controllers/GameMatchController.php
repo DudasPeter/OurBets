@@ -61,8 +61,6 @@ class GameMatchController extends Controller
             ...$data,
         ]);
 
-        $match->save();
-
         return to_route('matches.index')->with('success', 'Match created!');
     }
 
