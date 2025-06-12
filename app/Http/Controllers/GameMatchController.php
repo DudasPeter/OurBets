@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\TimeHelper;
 use App\Http\Resources\GameResource;
 use App\Models\Game;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class GameMatchController extends Controller
     {
         $games = Game::orderBy('scheduled_time', 'desc')->get()
             ->map(function ($game) {
-                $game->scheduled_time = Carbon::parse($game->scheduled_time)->isoFormat('DD.MM.  ddd   HH:mm');
+                $game->scheduled_time = TimeHelper::formatTime($game->scheduled_time);
 
                 return $game;
             });
@@ -71,6 +72,9 @@ class GameMatchController extends Controller
     {
 
         $game = Game::with('bets.user')->findOrFail($id);
+
+        $game->scheduled_time = TimeHelper::formatTime($game->scheduled_time);
+
 
         return inertia('Matches/Show', [
             'match' => GameResource::make($game),
