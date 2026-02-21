@@ -6,7 +6,6 @@ use App\Helpers\TimeHelper;
 use App\Http\Resources\GameResource;
 use App\Models\Game;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 
 class GameMatchController extends Controller
 {
@@ -45,19 +44,19 @@ class GameMatchController extends Controller
             'away_team' => 'required|string|max:3',
             'home_score' => ['required',
                 function ($attribute, $value, $fail) {
-                    if (!is_numeric($value) && $value !== '-') {
+                    if (! is_numeric($value) && $value !== '-') {
                         $fail('Home Score must be a number or -');
                     }
                 }],
             'away_score' => ['required',
                 function ($attribute, $value, $fail) {
-                    if (!is_numeric($value) && $value !== '-') {
+                    if (! is_numeric($value) && $value !== '-') {
                         $fail('Home Score must be a number or -');
                     }
                 }],
             'scheduled_time' => 'required|date',
         ]);
-
+;
         $match = Game::create([
             ...$data,
         ]);
@@ -74,7 +73,6 @@ class GameMatchController extends Controller
         $game = Game::with('bets.user')->findOrFail($id);
 
         $game->scheduled_time = TimeHelper::formatTime($game->scheduled_time);
-
 
         return inertia('Matches/Show', [
             'match' => GameResource::make($game),
@@ -103,13 +101,13 @@ class GameMatchController extends Controller
             'away_team' => 'required|string|max:3',
             'home_score' => ['required',
                 function ($attribute, $value, $fail) {
-                    if (!is_numeric($value) && $value !== '-') {
+                    if (! is_numeric($value) && $value !== '-') {
                         $fail('Home Score must be a number or -');
                     }
                 }],
             'away_score' => ['required',
                 function ($attribute, $value, $fail) {
-                    if (!is_numeric($value) && $value !== '-') {
+                    if (! is_numeric($value) && $value !== '-') {
                         $fail('Home Score must be a number or -');
                     }
                 }],
@@ -131,6 +129,7 @@ class GameMatchController extends Controller
         $game = Game::where('id', $id)->firstOrFail();
 
         $game->delete();
+
         return to_route('matches.index')->with('success', 'Match deleted!');
     }
 }
