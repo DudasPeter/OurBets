@@ -126,7 +126,7 @@ import { Head, Link } from '@inertiajs/vue3';
                     alt="Môj Malú Zúbok"
                     class="absolute inset-0 h-full w-full object-cover"
                 />
-                 <h1 class="absolute bottom-4 left-4 text-white text-4xl font-bold">🦷Môj Malý Zúbok🦷</h1>
+                 <h1 class="absolute bottom-4 left-12 text-pink-500 text-4xl font-bold">🦷Môj Malý Zúbok🦷</h1>
             </div>
             </main>
         </div>
