@@ -3,6 +3,7 @@
 use App\Http\Controllers\BetController;
 use App\Http\Controllers\GameMatchController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Zuby;
 use Inertia\Inertia;
 
 Route::get('/', function () {
@@ -12,6 +13,22 @@ Route::get('/', function () {
 Route::get('/zuby', function () {
     return Inertia::render('zuby');
 })->name('zuby');
+
+Route::get('/zubyForm', function () {
+    return Inertia::render('zubyForm');
+})->name('zubyForm');
+
+Route::post('/zubyForm', function () {
+    $validatedData = request()->validate([
+        'name' => 'required|string|max:255',
+    ]);
+
+    Zuby::create([
+        'name' => $validatedData['name'],
+    ]);
+    return redirect()->route('zuby')->with('success', 'Tvoj návrh bol úspěšně uložený! Doma sa n ato pozrieme a uvidíme, čo s tým ďalej. Ďakujeme za tvoju kreativitu!');
+})->name('zubyForm');
+
 
 Route::get('dashboard', function () {
     return Inertia::render('Dashboard');

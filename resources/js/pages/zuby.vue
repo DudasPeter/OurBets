@@ -1,6 +1,44 @@
 <script setup lang="ts">
 import { Pizza } from 'lucide-vue-next';
 import Button from '@/components/ui/button/Button.vue';
+import { router, usePage } from '@inertiajs/vue3';
+import Swal from 'sweetalert2';
+
+const redirectToForm = () => {
+    router.visit('/zubyForm');
+}
+
+
+const page = usePage();
+
+const errorFlashMessage = page.props.errors.message;
+const successFlashMessage = page.props.flash.success;
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 5000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+        toast.onmouseenter = Swal.stopTimer;
+        toast.onmouseleave = Swal.resumeTimer;
+    },
+});
+
+if (errorFlashMessage) {
+    Toast.fire({
+        icon: 'error',
+        title: errorFlashMessage,
+    });
+}
+
+if (successFlashMessage) {
+    Toast.fire({
+        icon: 'success',
+        title: successFlashMessage,
+    });
+}
 
 </script>
 
@@ -12,7 +50,7 @@ import Button from '@/components/ui/button/Button.vue';
             <h1 class="text-4xl font-bold text-center">
                 Čo si dnes dáme ?
             </h1>
-            <ul class="flex flex-col justify-center items-center text-center space-y-6 list-inside text-lg">
+            <ul class="flex mt-6 flex-col justify-center items-center text-center space-y-6 list-inside text-lg">
                 <li class="">
                     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -26,7 +64,7 @@ import Button from '@/components/ui/button/Button.vue';
                 <li>
                     <Pizza :size="48" />
                 </li>
-                <Button variant="outline">Buď kretívna.</Button>
+                <Button variant="outline" @click="redirectToForm">Buď kreatívna.</Button>
             </ul>
         </div>
     </div>
