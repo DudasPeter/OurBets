@@ -12,7 +12,7 @@ export const buttonVariants = cva(
         destructive:
           'bg-destructive text-white shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60',
         outline:
-          'border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50',
+          'border bg-background shadow-xs dark:bg-input/30 dark:border-input dark:hover:bg-input/50 hover:bg-gradient-to-br hover:from-violet-500 hover:to-fuchsia-500 hover:text-white hover:ring-4 hover:ring-violet-500/20 hover:shadow-[0_10px_30px_rgba(139,92,246,0.15),0_6px_18px_rgba(236,72,153,0.12)] active:bg-gradient-to-br active:from-violet-500 active:to-fuchsia-500 active:text-white active:ring-4 active:ring-violet-500/20 active:shadow-[0_10px_30px_rgba(139,92,246,0.15),0_6px_18px_rgba(236,72,153,0.12)] active:scale-95 transition-all duration-200"',
         secondary:
           'bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80',
         ghost:
