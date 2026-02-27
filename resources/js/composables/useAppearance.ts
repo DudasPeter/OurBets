@@ -1,6 +1,6 @@
 import { onMounted, ref } from 'vue';
 
-type Appearance = 'light' | 'dark' | 'system';
+type Appearance = 'light' | 'light' | 'system';
 
 export function updateTheme(value: Appearance) {
     if (typeof window === 'undefined') {
@@ -8,12 +8,12 @@ export function updateTheme(value: Appearance) {
     }
 
     if (value === 'system') {
-        const mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
-        const systemTheme = mediaQueryList.matches ? 'dark' : 'light';
+        const mediaQueryList = window.matchMedia('(prefers-color-scheme: light)');
+        const systemTheme = mediaQueryList.matches ? 'light' : 'light';
 
-        document.documentElement.classList.toggle('dark', systemTheme === 'dark');
+        document.documentElement.classList.toggle('light', systemTheme === 'light');
     } else {
-        document.documentElement.classList.toggle('dark', value === 'dark');
+        document.documentElement.classList.toggle('light', value === 'light');
     }
 }
 
@@ -32,7 +32,7 @@ const mediaQuery = () => {
         return null;
     }
 
-    return window.matchMedia('(prefers-color-scheme: dark)');
+    return window.matchMedia('(prefers-color-scheme: light)');
 };
 
 const getStoredAppearance = () => {
@@ -63,7 +63,7 @@ export function initializeTheme() {
 }
 
 export function useAppearance() {
-    const appearance = ref<Appearance>('light');
+    const appearance = ref<Appearance>('system');
 
     onMounted(() => {
         const savedAppearance = localStorage.getItem('appearance') as Appearance | null;
