@@ -63,7 +63,7 @@ export function initializeTheme() {
 }
 
 export function useAppearance() {
-    const appearance = ref<Appearance>('system');
+    const appearance = ref<Appearance>('light');
 
     onMounted(() => {
         const savedAppearance = localStorage.getItem('appearance') as Appearance | null;
