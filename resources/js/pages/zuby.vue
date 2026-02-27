@@ -44,7 +44,7 @@ if (successFlashMessage) {
 
 <template>
     <div
-        class="flex min-h-screen flex-col items-center bg-[#FDFDFC] p-6 text-[#1b1b18] lg:justify-center lg:p-8 dark:bg-[#0a0a0a] h-14 bg-linear-to-bl from-violet-500 to-fuchsia-500">
+        class="flex min-h-screen flex-col items-center justify-center bg-[#FDFDFC] p-6 text-[#1b1b18] lg:justify-center lg:p-8 dark:bg-[#0a0a0a] h-14 bg-linear-to-bl from-violet-500 to-fuchsia-500">
         <div
             class="w-full mx-auto rounded-lg bg-cyan-400 p-6 shadow-2xl ring ring-yellow-500 shadow-yellow-500 dark:bg-[#1b1b18] lg:w-2/3">
             <h1 class="text-4xl font-bold text-center">
