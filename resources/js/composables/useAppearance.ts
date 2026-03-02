@@ -14,12 +14,7 @@ export function initializeTheme() {
 export function useAppearance() {
     const appearance = ref<Appearance>('light');
 
-    function updateAppearance(value: Appearance) {
-        // No-op: always keep light mode
-    }
-
     return {
         appearance,
-        updateAppearance,
     };
 }

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import Button from '@/components/ui/button/Button.vue';
-import { useForm, usePage } from '@inertiajs/vue3';
-import Swal from 'sweetalert2';
+import { useForm } from '@inertiajs/vue3';
 
 const form = useForm({
     name: ''
