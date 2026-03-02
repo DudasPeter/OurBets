@@ -27,19 +27,18 @@ const form = useForm({
 
 const updateMatch = () => form.patch(route('matches.update', { id: props.match.data.id }));
 
-
 const deleteMatch = async () =>
     await Swal.fire({
-        title: "Are you sure?",
+        title: 'Are you sure?',
         text: "You won't be able to revert this!",
-        icon: "warning",
+        icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
         if (result.isConfirmed) {
-            form.delete(route('matches.destroy', {id: props.match.data.id}))
+            form.delete(route('matches.destroy', { id: props.match.data.id }));
         }
     });
 </script>
@@ -93,11 +92,7 @@ const deleteMatch = async () =>
                                             <Button class="cursor-pointer" type="submit">Submit</Button>
                                         </TableCell>
                                         <TableCell>
-                                            <Button
-                                                type="button"
-                                                @click="deleteMatch"
-                                                variant="destructive"
-                                                class=" cursor-pointer">Delete</Button>
+                                            <Button type="button" @click="deleteMatch" variant="destructive" class="cursor-pointer">Delete</Button>
                                         </TableCell>
                                     </TableRow>
                                 </TableBody>

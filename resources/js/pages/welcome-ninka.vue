@@ -121,16 +121,12 @@ import { Head, Link } from '@inertiajs/vue3';
                 <div
                     class="relative -mb-px aspect-335/376 w-full shrink-0 overflow-hidden rounded-t-lg bg-[#fff2f2] lg:mb-0 lg:-ml-px lg:aspect-auto lg:w-[438px] lg:rounded-t-none lg:rounded-r-lg dark:bg-[#1D0002]"
                 >
-                <Link :href="route('zuby')">
-                    <img
-                        src="/images/zubok.jpg"
-                        alt="Môj Malý Zúbok(elf version)"
-                        class="absolute inset-0 h-full w-full object-cover"
-                    />
-                    <h1 class="absolute bottom-4 left-4 text-pink-500 text-[30px] font-bold">🦷Môj Malý Zúbok🦷</h1>
-                    <p class="absolute left-12 text-pink-500 text-[30px] font-bold">Klikni na mňa 😋</p>
-                </Link>
-            </div>
+                    <Link :href="route('zuby')">
+                        <img src="/images/zubok.jpg" alt="Môj Malý Zúbok(elf version)" class="absolute inset-0 h-full w-full object-cover" />
+                        <h1 class="absolute bottom-4 left-4 text-[30px] font-bold text-pink-500">🦷Môj Malý Zúbok🦷</h1>
+                        <p class="absolute left-12 text-[30px] font-bold text-pink-500">Klikni na mňa 😋</p>
+                    </Link>
+                </div>
             </main>
         </div>
         <div class="hidden h-14.5 lg:block"></div>
