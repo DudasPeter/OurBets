@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Helpers\TimeHelper;
@@ -43,21 +45,21 @@ class GameMatchController extends Controller
             'home_team' => 'required|string|max:3',
             'away_team' => 'required|string|max:3',
             'home_score' => ['required',
-                function ($attribute, $value, $fail) {
+                function ($attribute, $value, $fail): void {
                     if (! is_numeric($value) && $value !== '-') {
                         $fail('Home Score must be a number or -');
                     }
                 }],
             'away_score' => ['required',
-                function ($attribute, $value, $fail) {
+                function ($attribute, $value, $fail): void {
                     if (! is_numeric($value) && $value !== '-') {
                         $fail('Home Score must be a number or -');
                     }
                 }],
             'scheduled_time' => 'required|date',
         ]);
-;
-        $match = Game::create([
+
+        Game::create([
             ...$data,
         ]);
 
@@ -100,13 +102,13 @@ class GameMatchController extends Controller
             'home_team' => 'required|string|max:3',
             'away_team' => 'required|string|max:3',
             'home_score' => ['required',
-                function ($attribute, $value, $fail) {
+                function ($attribute, $value, $fail): void {
                     if (! is_numeric($value) && $value !== '-') {
                         $fail('Home Score must be a number or -');
                     }
                 }],
             'away_score' => ['required',
-                function ($attribute, $value, $fail) {
+                function ($attribute, $value, $fail): void {
                     if (! is_numeric($value) && $value !== '-') {
                         $fail('Home Score must be a number or -');
                     }
